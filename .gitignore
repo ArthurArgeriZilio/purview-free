@@ -1,0 +1,30 @@
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# User data (don't commit personal credentials!)
+msrc_auth_credentials
+msrc_request_history
+msrc_favorites
+msrc_variables
+msrc_templates
+
+# Temporary files
+*.tmp
+*.temp

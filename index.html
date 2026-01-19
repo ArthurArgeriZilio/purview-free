@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Services REST Client</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="app-title">MICROSOFT SERVICES REST CLIENT</h1>
+            <div class="offline-indicator">OFFLINE MODE</div>
+        </div>
+    </header>
+
+    <!-- Authentication Panel -->
+    <div id="authPanel" class="auth-panel">
+        <div class="auth-header">
+            <h2>Service Principal Authentication</h2>
+            <button id="toggleAuth" class="btn-toggle">CONFIGURE</button>
+        </div>
+        <div id="authForm" class="auth-form hidden">
+            <div class="form-group">
+                <label for="tenantId">Tenant ID</label>
+                <input type="text" id="tenantId" placeholder="Enter Tenant ID">
+            </div>
+            <div class="form-group">
+                <label for="clientId">Client ID</label>
+                <input type="text" id="clientId" placeholder="Enter Client ID">
+            </div>
+            <div class="form-group">
+                <label for="clientSecret">Client Secret</label>
+                <input type="password" id="clientSecret" placeholder="Enter Client Secret">
+            </div>
+            <div class="form-group">
+                <label for="subscriptionId">Subscription ID (Optional - for Azure)</label>
+                <input type="text" id="subscriptionId" placeholder="Enter Subscription ID">
+            </div>
+            <div class="auth-remember">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="rememberCredentials">
+                    <span class="checkbox-label">Remember credentials (keep after closing browser)</span>
+                </label>
+            </div>
+            <div class="auth-actions">
+                <button id="saveAuth" class="btn-primary">SAVE CREDENTIALS</button>
+                <button id="testAuth" class="btn-secondary">TEST CONNECTION</button>
+                <button id="clearAuth" class="btn-danger">CLEAR ALL DATA</button>
+            </div>
+            <div class="auth-warning">
+                <svg class="warning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <span id="authWarningText">By default, credentials are stored only for this session (cleared when you close the browser). Enable "Remember credentials" to keep them permanently.</span>
+            </div>
+            <div id="authStatus" class="auth-status hidden"></div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Service Selection Wheel -->
+        <div id="wheelContainer" class="wheel-container">
+            <div class="wheel-center">
+                <div class="wheel-center-text">SELECT</div>
+                <div class="wheel-center-subtext">SERVICE</div>
+            </div>
+            <div class="wheel" id="serviceWheel">
+                <div class="wheel-item" data-service="powerbi" style="--rotation: 0deg;">
+                    <div class="wheel-item-content">
+                        <div class="wheel-item-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="8" y="24" width="8" height="16" rx="1"/>
+                                <rect x="20" y="16" width="8" height="24" rx="1"/>
+                                <rect x="32" y="8" width="8" height="32" rx="1"/>
+                            </svg>
+                        </div>
+                        <div class="wheel-item-label">Power BI</div>
+                    </div>
+                </div>
+                <div class="wheel-item" data-service="purview" style="--rotation: 45deg;">
+                    <div class="wheel-item-content">
+                        <div class="wheel-item-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="24" cy="20" r="10"/>
+                                <path d="M30 26 L40 36 M40 36 L38 40 M40 36 L44 38"/>
+                                <path d="M12 32 L24 20"/>
+                                <circle cx="24" cy="20" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="wheel-item-label">Purview</div>
+                    </div>
+                </div>
+                <div class="wheel-item" data-service="azure" style="--rotation: 90deg;">
+                    <div class="wheel-item-content">
+                        <div class="wheel-item-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 28 Q12 20, 18 18 T24 16 T30 18 Q36 20, 36 28"/>
+                                <path d="M8 32 Q8 28, 12 28 H36 Q40 28, 40 32 T36 36 H12 Q8 36, 8 32"/>
+                                <circle cx="24" cy="12" r="2" fill="currentColor"/>
+                                <circle cx="16" cy="14" r="1.5" fill="currentColor"/>
+                                <circle cx="32" cy="14" r="1.5" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div class="wheel-item-label">Azure</div>
+                    </div>
+                </div>
+                <div class="wheel-item" data-service="fabric" style="--rotation: 135deg;">
+                    <div class="wheel-item-content">
+                        <div class="wheel-item-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M8 12 L24 8 L40 12 L24 16 Z"/>
+                                <path d="M8 12 L8 28 L24 32 L40 28 L40 12"/>
+                                <path d="M24 16 L24 32"/>
+                                <path d="M8 20 L24 24 L40 20"/>
+                            </svg>
+                        </div>
+                        <div class="wheel-item-label">Fabric</div>
+                    </div>
+                </div>
+                <div class="wheel-item" data-service="graph" style="--rotation: 180deg;">
+                    <div class="wheel-item-content">
+                        <div class="wheel-item-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="24" cy="12" r="4"/>
+                                <circle cx="12" cy="36" r="4"/>
+                                <circle cx="36" cy="36" r="4"/>
+                                <circle cx="36" cy="20" r="4"/>
+                                <path d="M24 16 L24 28 M20 32 L16 36 M28 32 L32 36 M28 16 L32 20"/>
+                            </svg>
+                        </div>
+                        <div class="wheel-item-label">Graph API</div>
+                    </div>
+                </div>
+                <div class="wheel-item" data-service="onedrive" style="--rotation: 225deg;">
+                    <div class="wheel-item-content">
+                        <div class="wheel-item-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 20 Q16 14, 20 12 T28 12 Q32 14, 32 20"/>
+                                <rect x="10" y="20" width="28" height="16" rx="2"/>
+                                <path d="M24 26 L24 32 M20 28 L24 32 L28 28"/>
+                            </svg>
+                        </div>
+                        <div class="wheel-item-label">OneDrive</div>
+                    </div>
+                </div>
+                <div class="wheel-item" data-service="sharepoint" style="--rotation: 270deg;">
+                    <div class="wheel-item-content">
+                        <div class="wheel-item-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="24" cy="16" r="6"/>
+                                <circle cx="14" cy="32" r="5"/>
+                                <circle cx="34" cy="32" r="5"/>
+                                <path d="M20 20 L16 28 M28 20 L32 28"/>
+                                <path d="M19 32 L29 32"/>
+                            </svg>
+                        </div>
+                        <div class="wheel-item-label">SharePoint</div>
+                    </div>
+                </div>
+                <div class="wheel-item" data-service="synapse" style="--rotation: 315deg;">
+                    <div class="wheel-item-content">
+                        <div class="wheel-item-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="4"/>
+                                <circle cx="36" cy="12" r="4"/>
+                                <circle cx="12" cy="36" r="4"/>
+                                <circle cx="36" cy="36" r="4"/>
+                                <circle cx="24" cy="24" r="5"/>
+                                <path d="M15 14 L21 21 M33 14 L27 21 M15 34 L21 27 M33 34 L27 27"/>
+                            </svg>
+                        </div>
+                        <div class="wheel-item-label">Synapse</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service Panel -->
+        <div id="servicePanel" class="service-panel hidden">
+            <div class="service-header">
+                <button id="backToWheel" class="btn-back">BACK TO SERVICES</button>
+                <h2 id="serviceName" class="service-title"></h2>
+                <div class="service-actions">
+                    <button id="btnHistory" class="btn-icon" title="History">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </button>
+                    <button id="btnFavorites" class="btn-icon" title="Favorites">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </button>
+                    <button id="btnEnvironments" class="btn-icon" title="Environments">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Rate Limiting Info -->
+            <div id="rateLimitInfo" class="rate-limit-info hidden">
+                <div class="rate-limit-bar">
+                    <div class="rate-limit-fill" id="rateLimitFill"></div>
+                </div>
+                <div class="rate-limit-text" id="rateLimitText"></div>
+            </div>
+
+            <!-- Variables & Templates Bar -->
+            <div class="utility-bar">
+                <button id="btnVariables" class="btn-utility">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 8h10M7 12h10M7 16h10"/>
+                    </svg>
+                    Variables
+                </button>
+                <button id="btnTemplates" class="btn-utility">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <path d="M9 3v18M3 9h18M3 15h18"/>
+                    </svg>
+                    Templates
+                </button>
+                <button id="btnBatch" class="btn-utility">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 7h16M4 12h16M4 17h16"/>
+                        <circle cx="4" cy="7" r="1" fill="currentColor"/>
+                        <circle cx="4" cy="12" r="1" fill="currentColor"/>
+                        <circle cx="4" cy="17" r="1" fill="currentColor"/>
+                    </svg>
+                    Batch
+                </button>
+                <button id="btnImportExport" class="btn-utility">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                    </svg>
+                    Import/Export
+                </button>
+            </div>
+
+            <!-- Category Selector -->
+            <div class="category-selector">
+                <label for="categorySelect">Category:</label>
+                <select id="categorySelect" class="select-category">
+                    <option value="">Select a category...</option>
+                </select>
+            </div>
+
+            <!-- Endpoint Search & Filter -->
+            <div class="endpoint-search">
+                <input type="text" id="endpointSearch" class="search-input" placeholder="Search endpoints... (Ctrl+K)">
+                <div class="filter-methods">
+                    <button class="filter-btn active" data-method="all">ALL</button>
+                    <button class="filter-btn" data-method="GET">GET</button>
+                    <button class="filter-btn" data-method="POST">POST</button>
+                    <button class="filter-btn" data-method="PUT">PUT</button>
+                    <button class="filter-btn" data-method="PATCH">PATCH</button>
+                    <button class="filter-btn" data-method="DELETE">DELETE</button>
+                </div>
+            </div>
+
+            <!-- Endpoint Selector -->
+            <div class="endpoint-selector">
+                <label>Endpoint:</label>
+                <div id="endpointList" class="endpoint-list">
+                    <div class="no-selection">Select a category to view available endpoints</div>
+                </div>
+            </div>
+
+            <!-- Request Configuration -->
+            <div id="requestConfig" class="request-config hidden">
+                <div class="config-section">
+                    <label for="httpMethod">HTTP Method:</label>
+                    <select id="httpMethod" class="select-method">
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="PATCH">PATCH</option>
+                        <option value="DELETE">DELETE</option>
+                    </select>
+                </div>
+
+                <div class="config-section">
+                    <label for="baseUrl">Base URL:</label>
+                    <input type="text" id="baseUrl" class="input-url" readonly>
+                </div>
+
+                <div class="config-section">
+                    <label for="endpointUrl">Endpoint URL:</label>
+                    <input type="text" id="endpointUrl" class="input-url" placeholder="/path/to/endpoint">
+                    <div class="endpoint-help">
+                        <div id="endpointDescription" class="endpoint-description"></div>
+                        <a id="endpointDocs" class="endpoint-docs" href="#" target="_blank">View Official Documentation</a>
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <label for="requestBody">Request Body (JSON):</label>
+                    <textarea id="requestBody" class="textarea-json" rows="8" placeholder='{\n  "key": "value"\n}'></textarea>
+                </div>
+
+                <div class="config-section">
+                    <label for="requestHeaders">Custom Headers (JSON):</label>
+                    <textarea id="requestHeaders" class="textarea-json" rows="4" placeholder='{\n  "Custom-Header": "value"\n}'></textarea>
+                </div>
+
+                <div class="config-actions">
+                    <button id="executeRequest" class="btn-execute">EXECUTE REQUEST</button>
+                    <button id="generateCode" class="btn-secondary">GENERATE CODE</button>
+                    <button id="saveFavorite" class="btn-secondary">SAVE TO FAVORITES</button>
+                    <button id="saveAsTemplate" class="btn-secondary">SAVE AS TEMPLATE</button>
+                </div>
+                <div class="request-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="autoRetry">
+                        <span class="checkbox-label">Auto-retry on failure (up to 3 times)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Response Panel -->
+            <div id="responsePanel" class="response-panel hidden">
+                <div class="response-header">
+                    <h3>Response</h3>
+                    <div class="response-actions">
+                        <button id="btnCopyResponse" class="btn-icon" title="Copy Response">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </button>
+                        <button id="btnCopyUrl" class="btn-icon" title="Copy URL">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </button>
+                        <button id="btnFormatJson" class="btn-icon" title="Format JSON">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </button>
+                        <button id="btnCompareResponse" class="btn-icon" title="Compare with Previous">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"></path>
+                                <path d="M10 19v-3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z"></path>
+                            </svg>
+                        </button>
+                        <button id="btnDownloadResponse" class="btn-icon" title="Download Response">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="response-meta">
+                        <span id="responseStatus" class="response-status"></span>
+                        <span id="responseTime" class="response-time"></span>
+                    </div>
+                </div>
+                <div class="response-body">
+                    <pre id="responseContent" class="response-content"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Modal -->
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Request History</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="historyList" class="history-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Favorites Modal -->
+    <div id="favoritesModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Favorite Requests</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="favoritesList" class="favorites-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Generator Modal -->
+    <div id="codeGenModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Generate Code</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="code-gen-tabs">
+                    <button class="code-tab active" data-lang="python">Python</button>
+                    <button class="code-tab" data-lang="powershell">PowerShell</button>
+                    <button class="code-tab" data-lang="curl">cURL</button>
+                </div>
+                <div class="code-gen-content">
+                    <pre id="generatedCode" class="generated-code"></pre>
+                    <button id="copyCode" class="btn-copy">COPY TO CLIPBOARD</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Environments Modal -->
+    <div id="environmentsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Environments</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="environmentsList" class="environments-list">
+                    <div class="environment-item active" data-env="prod">
+                        <input type="radio" name="environment" value="prod" checked>
+                        <label>Production</label>
+                    </div>
+                    <div class="environment-item" data-env="dev">
+                        <input type="radio" name="environment" value="dev">
+                        <label>Development</label>
+                    </div>
+                    <div class="environment-item" data-env="qa">
+                        <input type="radio" name="environment" value="qa">
+                        <label>QA/Testing</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Variables Modal -->
+    <div id="variablesModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Request Variables</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">
+                    Define variables to use in your requests. Use {{variableName}} in URLs, headers, or body.
+                </p>
+                <div id="variablesList" class="variables-list"></div>
+                <button id="addVariable" class="btn-primary">ADD VARIABLE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Templates Modal -->
+    <div id="templatesModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Request Templates</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="templatesList" class="templates-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Batch Execution Modal -->
+    <div id="batchModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Batch Execution</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">
+                    Add multiple requests to execute in sequence. Use response from previous requests as variables.
+                </p>
+                <div id="batchList" class="batch-list"></div>
+                <div class="batch-actions">
+                    <button id="addToBatch" class="btn-secondary">ADD CURRENT REQUEST</button>
+                    <button id="executeBatch" class="btn-primary">EXECUTE ALL</button>
+                    <button id="clearBatch" class="btn-danger">CLEAR BATCH</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compare Modal -->
+    <div id="compareModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Compare Responses</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="compare-container">
+                    <div class="compare-side">
+                        <h3>Previous Response</h3>
+                        <pre id="comparePrevious" class="response-content"></pre>
+                    </div>
+                    <div class="compare-side">
+                        <h3>Current Response</h3>
+                        <pre id="compareCurrent" class="response-content"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import/Export Modal -->
+    <div id="importExportModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Import / Export</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="import-export-section">
+                    <h3>Export</h3>
+                    <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">
+                        Export all your data (favorites, history, variables, templates) to a JSON file.
+                    </p>
+                    <button id="btnExport" class="btn-primary">EXPORT ALL DATA</button>
+                </div>
+                <hr style="border-color: var(--color-border); margin: 2rem 0;">
+                <div class="import-export-section">
+                    <h3>Import</h3>
+                    <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">
+                        Import data from a previously exported JSON file.
+                    </p>
+                    <input type="file" id="importFile" accept=".json" style="display: none;">
+                    <button id="btnImport" class="btn-secondary">IMPORT DATA</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Chart Modal -->
+    <div id="performanceModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Request Performance History</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <canvas id="performanceChart" width="800" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="services.js"></script>
+    <script src="ratelimits.js"></script>
+    <script src="storage.js"></script>
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
