@@ -15,14 +15,44 @@ Uma interface web **100% offline** para interagir com APIs REST dos serviços Mi
 
 ## Serviços Suportados
 
+### Dados & Analytics
 1. **Power BI** - Dashboards, Reports, Datasets, Dataflows, Workspaces, Pipelines, Apps, Capacities, Gateways
-2. **Purview** - Catalog, Glossary, Lineage, Collections, Scans
-3. **Azure** - Resource Groups, Virtual Machines, Storage Accounts, Subscriptions
-4. **Microsoft Fabric** - Workspaces, Items, Lakehouses, Notebooks
-5. **Microsoft Graph API** - Users, Groups, Mail, Calendar, Teams, Sites
-6. **OneDrive** - Drive, Items, Sharing, Search
-7. **SharePoint** - Sites, Lists, Document Libraries
-8. **Azure Synapse** - Workspaces, SQL Pools, Spark Pools, Pipelines, Notebooks
+2. **Microsoft Purview** - Catalog, Glossary, Lineage, Collections, Scans
+3. **Microsoft Fabric** - Workspaces, Items, Lakehouses, Notebooks
+4. **Azure Synapse** - Workspaces, SQL Pools, Spark Pools, Pipelines, Notebooks
+5. **Azure Data Factory** - Pipelines, Datasets, Linked Services, Triggers, Pipeline Runs
+6. **Azure Databricks** - Clusters, Jobs, Workspace, DBFS, SQL Warehouses
+
+### Identidade & Segurança
+7. **Microsoft Entra ID** - Applications, Service Principals, Conditional Access, Directory Roles, Domains
+8. **Microsoft Defender** - Alerts, Incidents, Machines, Vulnerabilities, Indicators, Advanced Hunting
+9. **Microsoft Sentinel** - Incidents, Alert Rules, Watchlists, Threat Intelligence, Bookmarks
+10. **Azure Key Vault** - Secrets, Keys, Certificates
+
+### Produtividade & Colaboração
+11. **Microsoft Graph API** - Users, Groups, Mail, Calendar, Teams, Sites
+12. **Microsoft Teams** - Teams, Channels, Messages, Members, Apps, Meetings
+13. **Exchange Online** - Mail, Mail Folders, Calendar, Contacts, Rules
+14. **OneDrive** - Drive, Items, Sharing, Search
+15. **SharePoint** - Sites, Lists, Document Libraries
+
+### Infraestrutura & DevOps
+16. **Azure** - Resource Groups, Virtual Machines, Storage Accounts, Subscriptions
+17. **Azure DevOps** - Projects, Repositories, Pipelines, Work Items, Builds, Releases
+18. **Azure Logic Apps** - Workflows, Runs, Triggers, Actions
+19. **Azure Monitor** - Metrics, Alerts, Action Groups, Log Analytics, Diagnostic Settings
+20. **Azure Cost Management** - Cost Analysis, Budgets, Usage Details, Exports
+
+### AI & Automação
+21. **Azure AI Services** - Azure OpenAI, Text Analytics, Computer Vision, Translator
+22. **Power Automate** - Flows, Flow Runs, Connections, Environments
+23. **Power Apps** - Apps, Environments, Connectors, Connections
+
+### CRM & ERP
+24. **Dynamics 365** - Accounts, Contacts, Leads, Opportunities, Cases, Activities
+
+### Gestão de Dispositivos
+25. **Microsoft Intune** - Managed Devices, Compliance Policies, Device Configurations, Mobile Apps
 
 ## Como Usar
 
@@ -46,15 +76,7 @@ Basta abrir o arquivo `index.html` em qualquer navegador moderno (Chrome, Edge, 
 
 ### 3. Selecionar Serviço
 
-Clique em um dos 8 serviços na roda circular:
-- BI - Power BI
-- PV - Purview
-- AZ - Azure
-- FB - Microsoft Fabric
-- GR - Microsoft Graph API
-- OD - OneDrive
-- SP - SharePoint
-- SY - Azure Synapse
+Clique em um dos 25 serviços na roda circular para iniciar.
 
 ### 4. Fazer Requisição
 

@@ -220,6 +220,23 @@ Rastreamento automático de quantas requisições você fez para cada serviço, 
 | OneDrive | 600,000 req/10min | 2,000 req/segundo (burst) |
 | SharePoint | 600,000 req/10min | 2,000 req/segundo (burst) |
 | Azure Synapse | 12,000 reads/hora | 1,200 writes/hora |
+| Microsoft Entra ID | 10,000 req/10min | (Graph limits) |
+| Microsoft Intune | 10,000 req/10min | (Graph limits) |
+| Microsoft Defender | 1,500 req/hora | 100 req/minuto |
+| Azure DevOps | 12,000 req/hora | 200 req/minuto |
+| Microsoft Teams | 10,000 req/10min | 30 req/segundo (chat) |
+| Azure Key Vault | 4,000 trans/10seg | (HSM keys) |
+| Azure Data Factory | 12,000 reads/hora | 1,200 writes/hora |
+| Azure Databricks | 30 req/segundo | - |
+| Microsoft Sentinel | 12,000 reads/hora | 1,200 writes/hora |
+| Dynamics 365 | 6,000 req/5min | Por usuário |
+| Azure Logic Apps | 12,000 reads/hora | 1,200 writes/hora |
+| Azure AI Services | 1,000 req/minuto | Varia por serviço |
+| Azure Monitor | 12,000 reads/hora | 1,200 writes/hora |
+| Azure Cost Management | 30 req/minuto | - |
+| Power Automate | 6,000 req/5min | Por usuário |
+| Power Apps | 6,000 req/5min | Por usuário |
+| Exchange Online | 10,000 req/10min | (Graph limits) |
 
 ### Onde Ver
 - Barra de rate limit aparece no topo do painel de cada serviço
