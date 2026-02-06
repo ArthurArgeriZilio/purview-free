@@ -168,6 +168,19 @@ Dependendo dos serviços que você quer usar, adicione as permissões:
 
 ## Segurança
 
+⚠️ **IMPORTANTE - USO PESSOAL/LOCAL APENAS:**
+
+Este aplicativo realiza autenticação `client_credentials` diretamente do frontend, o que significa que o **Client Secret é visível nas ferramentas de desenvolvedor do navegador (aba Network)**. 
+
+**Recomendações de Segurança:**
+- ✅ Use apenas para **ambientes pessoais/locais**
+- ✅ **NUNCA** use credenciais de produção neste app
+- ✅ Crie um Service Principal dedicado com permissões mínimas (somente leitura)
+- ✅ Nunca compartilhe seus exports se eles contiverem credenciais
+- ❌ **NÃO** use em ambientes compartilhados ou públicos
+- ❌ **NÃO** use Client Secrets de produção
+
+**Outras Medidas de Segurança:**
 - **Não compartilhe suas credenciais**
 - **Não use em computadores públicos**
 - Use o botão **CLEAR ALL DATA** ao terminar de usar em computadores compartilhados
