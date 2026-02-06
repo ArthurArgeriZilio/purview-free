@@ -24,15 +24,18 @@
         <div id="authForm" class="auth-form hidden">
             <div class="form-group">
                 <label for="tenantId">Tenant ID</label>
-                <input type="text" id="tenantId" placeholder="Enter Tenant ID">
+                <input type="text" id="tenantId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" pattern="[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}">
             </div>
             <div class="form-group">
                 <label for="clientId">Client ID</label>
-                <input type="text" id="clientId" placeholder="Enter Client ID">
+                <input type="text" id="clientId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" pattern="[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}">
             </div>
             <div class="form-group">
                 <label for="clientSecret">Client Secret</label>
                 <input type="password" id="clientSecret" placeholder="Enter Client Secret">
+                <small style="color: var(--color-warning); font-size: 0.85rem; margin-top: 4px; display: block;">
+                    ⚠️ Warning: Client Secret is visible in browser memory and network requests. Use only for personal/local environments.
+                </small>
             </div>
             <div class="form-group">
                 <label for="subscriptionId">Subscription ID (Optional - for Azure)</label>

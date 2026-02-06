@@ -1,6 +1,14 @@
 # Microsoft Services REST Client
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Offline](https://img.shields.io/badge/Works-Offline-success)](https://github.com/ArthurArgeriZilio/purview-free)
+
 Uma interface web **100% offline** para interagir com APIs REST dos serviços Microsoft.
+
+📚 **[FEATURES.md](FEATURES.md)** | 🚀 **[QUICKSTART.md](QUICKSTART.md)**
 
 ## Características
 
@@ -96,15 +104,41 @@ Clique em um dos 8 serviços na roda circular:
 - Alterne entre Production, Development e QA
 - As URLs base serão ajustadas automaticamente
 
+## Screenshots
+
+> 📸 Screenshots coming soon! Open `index.html` in your browser to see the interface.
+
+### Service Selection Wheel
+![Service Wheel](assets/screenshot-wheel.png)
+
+### Request Panel  
+![Request Panel](assets/screenshot-panel.png)
+
+### Response View
+![Response View](assets/screenshot-response.png)
+
 ## Estrutura de Arquivos
 
 ```
-├── index.html       # Estrutura HTML principal
-├── styles.css       # Estilos (tema Steam)
-├── services.js      # Configuração de todos os serviços e endpoints
-├── auth.js          # Gerenciamento de autenticação
-├── storage.js       # Gerenciamento de LocalStorage
-└── app.js           # Lógica principal da aplicação
+├── index.html          # Estrutura HTML principal
+├── styles.css          # Estilos (tema Steam)
+├── services.js         # Configuração de todos os serviços e endpoints
+├── auth.js             # Gerenciamento de autenticação
+├── storage.js          # Gerenciamento de LocalStorage
+├── app.js              # Lógica principal da aplicação
+├── ratelimits.js       # Gerenciamento de rate limiting
+├── README.md           # Documentação principal
+├── FEATURES.md         # Documentação detalhada de funcionalidades
+├── QUICKSTART.md       # Guia de início rápido
+├── SECURITY.md         # Análise de segurança
+├── CONTRIBUTING.md     # Guia de contribuição
+├── CHANGELOG.md        # Histórico de versões
+├── LICENSE             # Licença MIT
+├── .gitignore          # Arquivos ignorados pelo Git
+├── assets/             # Screenshots e imagens
+├── design/             # Arquivos de design Figma
+└── .github/
+    └── workflows/      # GitHub Actions (deploy automático)
 ```
 
 ## Requisitos
@@ -168,6 +202,19 @@ Dependendo dos serviços que você quer usar, adicione as permissões:
 
 ## Segurança
 
+⚠️ **IMPORTANTE - USO PESSOAL/LOCAL APENAS:**
+
+Este aplicativo realiza autenticação `client_credentials` diretamente do frontend, o que significa que o **Client Secret é visível nas ferramentas de desenvolvedor do navegador (aba Network)**. 
+
+**Recomendações de Segurança:**
+- ✅ Use apenas para **ambientes pessoais/locais**
+- ✅ **NUNCA** use credenciais de produção neste app
+- ✅ Crie um Service Principal dedicado com permissões mínimas (somente leitura)
+- ✅ Nunca compartilhe seus exports se eles contiverem credenciais
+- ❌ **NÃO** use em ambientes compartilhados ou públicos
+- ❌ **NÃO** use Client Secrets de produção
+
+**Outras Medidas de Segurança:**
 - **Não compartilhe suas credenciais**
 - **Não use em computadores públicos**
 - Use o botão **CLEAR ALL DATA** ao terminar de usar em computadores compartilhados
@@ -176,7 +223,9 @@ Dependendo dos serviços que você quer usar, adicione as permissões:
 
 ## Licença
 
-Este projeto é fornecido "como está", sem garantias de qualquer tipo.
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+Copyright (c) 2025 ArthurArgeriZilio
 
 ## Suporte
 

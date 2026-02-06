@@ -506,17 +506,6 @@ body {
     letter-spacing: 1px;
 }
 
-.wheel-item.selected .wheel-item-content {
-    background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
-    border-color: var(--color-accent-secondary);
-    transform: scale(1.15);
-}
-
-.wheel-item.selected .wheel-item-icon,
-.wheel-item.selected .wheel-item-label {
-    color: white;
-}
-
 /* ============================================
    SERVICE PANEL
    ============================================ */
