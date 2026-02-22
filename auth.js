@@ -23,10 +23,11 @@ class AuthManager {
 
     // Check if credentials are configured
     hasCredentials() {
+        const guidRegex = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
         return this.credentials && 
-               this.credentials.tenantId && 
-               this.credentials.clientId && 
-               this.credentials.clientSecret;
+               this.credentials.tenantId && guidRegex.test(this.credentials.tenantId) &&
+               this.credentials.clientId && guidRegex.test(this.credentials.clientId) &&
+               this.credentials.clientSecret && this.credentials.clientSecret.length >= 8;
     }
 
     // Get access token (with caching)
@@ -78,7 +79,7 @@ class AuthManager {
             
             return this.accessToken;
         } catch (error) {
-            console.error('Token request error:', error);
+            console.warn('Token request failed. Check credentials and network connectivity.');
             throw new Error(`Failed to obtain access token: ${error.message}`);
         }
     }

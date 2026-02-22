@@ -1,6 +1,25 @@
 # Microsoft Services REST Client
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![Offline](https://img.shields.io/badge/100%25-Offline-brightgreen)
+
 Uma interface web **100% offline** para interagir com APIs REST dos serviços Microsoft.
+
+## ⚠️ Aviso Importante de Segurança
+
+Esta ferramenta é para **uso pessoal/desenvolvimento apenas**. O fluxo `client_credentials` expõe o Client Secret no navegador (DevTools → aba Network). 
+
+**Recomendações obrigatórias:**
+- ❌ **NUNCA** use secrets de produção
+- ✅ Crie um Service Principal **exclusivo para testes** com permissões mínimas (Reader)
+- ✅ Troque o secret a cada 90 dias
+- ✅ Use em máquina confiável e rede segura
+- ✅ Limpe os dados ao terminar (`CLEAR ALL DATA`)
+
+Para mais detalhes, consulte [SECURITY.md](SECURITY.md).
 
 ## Características
 
@@ -99,12 +118,23 @@ Clique em um dos 8 serviços na roda circular:
 ## Estrutura de Arquivos
 
 ```
-├── index.html       # Estrutura HTML principal
-├── styles.css       # Estilos (tema Steam)
-├── services.js      # Configuração de todos os serviços e endpoints
-├── auth.js          # Gerenciamento de autenticação
-├── storage.js       # Gerenciamento de LocalStorage
-└── app.js           # Lógica principal da aplicação
+├── .github/
+│   └── workflows/
+│       └── deploy-pages.yml   # Deploy automático GitHub Pages
+├── index.html                 # Estrutura HTML principal
+├── styles.css                 # Estilos (tema Steam)
+├── services.js                # Configuração de serviços e endpoints
+├── auth.js                    # Gerenciamento de autenticação
+├── storage.js                 # Gerenciamento de armazenamento
+├── app.js                     # Lógica principal da aplicação
+├── ratelimits.js              # Rate limiting por serviço
+├── README.md                  # Este arquivo
+├── FEATURES.md                # Lista completa de funcionalidades
+├── QUICKSTART.md              # Guia de início rápido
+├── SECURITY.md                # Análise de segurança
+├── CONTRIBUTING.md            # Guia de contribuição
+├── CHANGELOG.md               # Histórico de mudanças
+└── LICENSE                    # Licença MIT
 ```
 
 ## Requisitos
@@ -174,9 +204,14 @@ Dependendo dos serviços que você quer usar, adicione as permissões:
 - As credenciais ficam apenas no seu navegador (LocalStorage)
 - Todas as comunicações são feitas via HTTPS
 
+## Autores
+
+- **Arthur Argeri Zilio** — Criador e desenvolvedor principal — [@ArthurArgeriZilio](https://github.com/ArthurArgeriZilio)
+- **Guilherme Leone** — Colaborador e co-desenvolvedor
+
 ## Licença
 
-Este projeto é fornecido "como está", sem garantias de qualquer tipo.
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
 
 ## Suporte
 
