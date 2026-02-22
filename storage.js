@@ -37,7 +37,8 @@ class StorageManager {
         try {
             this.setRememberPreference(remember);
             const storage = this.getStorageType();
-            storage.setItem(this.KEYS.AUTH, JSON.stringify(credentials));
+            const obfuscated = this.obfuscateCredentials(credentials);
+            storage.setItem(this.KEYS.AUTH, obfuscated);
             return true;
         } catch (error) {
             console.error('Error saving credentials:', error);
@@ -47,12 +48,12 @@ class StorageManager {
 
     getAuth() {
         try {
-            // Check both session and local storage
             let data = sessionStorage.getItem(this.KEYS.AUTH);
             if (!data) {
                 data = localStorage.getItem(this.KEYS.AUTH);
             }
-            return data ? JSON.parse(data) : null;
+            if (!data) return null;
+            return this.deobfuscateCredentials(data);
         } catch (error) {
             console.error('Error loading credentials:', error);
             return null;
@@ -173,6 +174,56 @@ class StorageManager {
         Object.values(this.KEYS).forEach(key => {
             localStorage.removeItem(key);
         });
+    }
+
+    // Encryption key derivation from a user passphrase (optional future use)
+    async deriveKey(passphrase) {
+        const encoder = new TextEncoder();
+        const keyMaterial = await crypto.subtle.importKey(
+            'raw',
+            encoder.encode(passphrase),
+            { name: 'PBKDF2' },
+            false,
+            ['deriveKey']
+        );
+        return await crypto.subtle.deriveKey(
+            {
+                name: 'PBKDF2',
+                salt: encoder.encode('msrc-salt-v1'),
+                iterations: 100000,
+                hash: 'SHA-256'
+            },
+            keyMaterial,
+            { name: 'AES-GCM', length: 256 },
+            false,
+            ['encrypt', 'decrypt']
+        );
+    }
+
+    // Basic obfuscation for stored credentials (not encryption, but prevents casual reading)
+    obfuscateCredentials(credentials) {
+        try {
+            const json = JSON.stringify(credentials);
+            return btoa(encodeURIComponent(json).replace(/%([0-9A-F]{2})/g, (_, p1) => String.fromCharCode('0x' + p1)));
+        } catch (error) {
+            console.warn('Obfuscation failed, storing as-is');
+            return JSON.stringify(credentials);
+        }
+    }
+
+    deobfuscateCredentials(data) {
+        try {
+            // Try base64 first
+            const json = decodeURIComponent(atob(data).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+            return JSON.parse(json);
+        } catch {
+            // Fallback: try plain JSON (backwards compatibility)
+            try {
+                return JSON.parse(data);
+            } catch {
+                return null;
+            }
+        }
     }
 
     // Export data

@@ -1,5 +1,7 @@
 # 🔒 Análise de Segurança - Microsoft Services REST Client
 
+> **⚠️ IMPORTANTE**: Esta ferramenta utiliza o fluxo `client_credentials` OAuth2 diretamente no frontend. Isso significa que o Client Secret é transmitido pelo navegador e pode ser visto no DevTools (Network tab). Use APENAS Service Principals dedicados de baixo privilégio. Para detalhes completos, leia este documento.
+
 ## ✅ CORREÇÕES IMPLEMENTADAS
 
 ### 1. **XSS (Cross-Site Scripting) - RESOLVIDO**
@@ -379,5 +381,5 @@ Se encontrar problemas de segurança:
 
 ---
 
-*Última atualização: Janeiro 2026*
-*Versão: 1.0*
+*Última atualização: Fevereiro 2026*
+*Versão: 1.1*
