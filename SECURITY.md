@@ -1,5 +1,7 @@
 # 🔒 Análise de Segurança - Microsoft Services REST Client
 
+> **⛔ USO LOCAL APENAS**: Este projeto é para execução local/desenvolvimento. **Não o hospede publicamente** (ex: GitHub Pages). O Client Secret fica visível no navegador — hospedagem pública colocaria as credenciais em risco para qualquer pessoa com acesso à URL.
+
 > **⚠️ IMPORTANTE**: Esta ferramenta utiliza o fluxo `client_credentials` OAuth2 diretamente no frontend. Isso significa que o Client Secret é transmitido pelo navegador e pode ser visto no DevTools (Network tab). Use APENAS Service Principals dedicados de baixo privilégio. Para detalhes completos, leia este documento.
 
 ## ✅ CORREÇÕES IMPLEMENTADAS
@@ -242,6 +244,8 @@ deleteBtn.addEventListener('click', () => this.deleteVariable(key));
 
 ## 📋 RECOMENDAÇÕES DE USO SEGURO
 
+> ⛔ **Este projeto é para uso local/desenvolvimento apenas. Não o hospede publicamente** (ex: GitHub Pages, Netlify, Vercel). O Client Secret fica exposto no navegador — hospedagem pública colocaria suas credenciais em risco.
+
 ### 1. **Service Principal Dedicado**
 Crie um Service Principal específico para esta ferramenta:
 ```bash
@@ -259,12 +263,38 @@ Dê apenas as permissões mínimas necessárias:
 - Monitore uso de Service Principal
 - Revogue imediatamente se comprometido
 
-### 4. **Ambiente Seguro**
+### 4. **Limpar Dados Após o Uso**
+Se usou algo próximo de produção (ex: tenant real):
+- Clique em **CLEAR ALL DATA** na interface
+- Confirme na aba `Application` do DevTools (LocalStorage e SessionStorage) que não ficou nada salvo
+- Revogue e recrie o Client Secret do Service Principal se necessário
+
+### 5. **Verificar se o Navegador Salvou Credenciais**
+Após o uso, confirme que o navegador não armazenou nada:
+- Verifique o **gerenciador de senhas** do navegador (autofill / senhas salvas)
+- Verifique o **histórico de formulários** (sugestões de preenchimento automático)
+- Se necessário, limpe os dados de navegação do domínio `localhost`
+
+### 6. **Perfil Separado do Navegador**
+- Use um **perfil dedicado** para desenvolvimento (ex: "Perfil Dev") ou uma **janela anônima/privada**
+- Perfis separados isolam cookies, extensões e histórico de formulários
+
+### 7. **Extensões do Navegador**
+- Revise as extensões instaladas antes de usar
+- **Desative extensões suspeitas** ou desnecessárias durante o uso
+- Evite extensões de "coupon", "download helper", "produtividade" de fontes desconhecidas — elas podem ler o conteúdo das páginas
+
+### 8. **Máquina Confiável**
+- Use somente em máquina pessoal, confiável e sem malware
+- Não use em computadores públicos, compartilhados ou corporativos sem autorização
+- Mantenha o sistema operacional e o navegador atualizados
+
+### 9. **Ambiente Seguro**
 - Use em máquina confiável
 - Não compartilhe exports com credenciais
 - Limpe cookies/storage ao sair
 
-### 5. **Auditoria**
+### 10. **Auditoria**
 - Revise logs do Azure AD
 - Monitore chamadas de API
 - Use Conditional Access policies

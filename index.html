@@ -42,8 +42,9 @@
                 <input type="password" id="clientSecret" placeholder="Enter Client Secret" autocomplete="off" title="⚠️ ATENÇÃO: Este valor é visível no DevTools do navegador. Use apenas secrets de teste/desenvolvimento.">
             </div>
             <div class="security-warning" style="background: linear-gradient(135deg, #1a0a00, #2d1a00); border: 1px solid #ff6600; border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 0.85rem;">
-                <div style="color: #ff9944; font-weight: bold; margin-bottom: 6px;">⚠️ AVISO DE SEGURANÇA</div>
+                <div style="color: #ff9944; font-weight: bold; margin-bottom: 6px;">⚠️ AVISO DE SEGURANÇA — USO LOCAL APENAS</div>
                 <ul style="color: #cc8833; margin: 0; padding-left: 18px; line-height: 1.6;">
+                    <li>⛔ <strong>Não hospede este aplicativo publicamente</strong> (ex: GitHub Pages) — o Client Secret ficaria exposto</li>
                     <li>O Client Secret é visível no navegador (DevTools → Network tab)</li>
                     <li>Use <strong>apenas Service Principals de baixo privilégio</strong> (Reader)</li>
                     <li>Nunca use secrets de produção nesta ferramenta</li>
@@ -53,7 +54,7 @@
             </div>
             <div class="form-group">
                 <label for="subscriptionId">Subscription ID (Optional - for Azure)</label>
-                <input type="text" id="subscriptionId" placeholder="Enter Subscription ID">
+                <input type="text" id="subscriptionId" placeholder="Enter Subscription ID" autocomplete="off">
             </div>
             <div class="auth-remember">
                 <label class="checkbox-container">

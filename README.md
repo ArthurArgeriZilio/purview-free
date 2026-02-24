@@ -8,9 +8,29 @@
 
 Uma interface web **100% offline** para interagir com APIs REST dos serviços Microsoft.
 
+## ⛔ Apenas para Uso Local — Não hospede publicamente
+
+> **Este projeto foi criado para execução local/desenvolvimento. Não o hospede em servidores públicos (ex: GitHub Pages, Netlify, Vercel ou qualquer outro serviço de hosting).** O fluxo `client_credentials` inclui o Client Secret diretamente no navegador — hospedá-lo publicamente exporia as credenciais a qualquer pessoa que acessasse a URL.
+
+### Como executar localmente
+
+**Opção A — Abrir diretamente no navegador:**
+```
+Abra o arquivo index.html em qualquer navegador moderno (Chrome, Edge, Firefox).
+Não é necessário servidor web!
+```
+
+**Opção B — Servidor local (recomendado se ocorrer erro de CORS):**
+```bash
+python -m http.server 8000
+```
+Depois acesse: `http://localhost:8000`
+
+> **Nota sobre CORS:** Algumas APIs Microsoft bloqueiam requisições de origens `file://`. Nesses casos, use a Opção B com servidor local.
+
 ## ⚠️ Aviso Importante de Segurança
 
-Esta ferramenta é para **uso pessoal/desenvolvimento apenas**. O fluxo `client_credentials` expõe o Client Secret no navegador (DevTools → aba Network). 
+Esta ferramenta é para **uso pessoal/desenvolvimento apenas**. O fluxo `client_credentials` expõe o Client Secret no navegador (DevTools → aba Network).
 
 **Recomendações obrigatórias:**
 - ❌ **NUNCA** use secrets de produção
@@ -18,6 +38,17 @@ Esta ferramenta é para **uso pessoal/desenvolvimento apenas**. O fluxo `client_
 - ✅ Troque o secret a cada 90 dias
 - ✅ Use em máquina confiável e rede segura
 - ✅ Limpe os dados ao terminar (`CLEAR ALL DATA`)
+
+**Se usou algo próximo de produção (ex: tenant real), após terminar:**
+- Clique em **CLEAR ALL DATA**
+- Verifique a aba `Application` do DevTools (LocalStorage/SessionStorage) para confirmar que não ficou nada salvo
+- Verifique se o navegador salvou credenciais (gerenciador de senhas / autofill / histórico de formulários)
+- Revogue e recrie o Client Secret do Service Principal se necessário
+
+**Boas práticas adicionais:**
+- 🌐 Use um **perfil separado do navegador** (ex: "Perfil Dev") ou janela anônima
+- 🧩 Revise as extensões instaladas — desative extensões suspeitas ou de "coupon", "download helper", etc.
+- 💻 Execute somente em máquinas confiáveis, sem malware
 
 Para mais detalhes, consulte [SECURITY.md](SECURITY.md).
 
@@ -47,9 +78,7 @@ Para mais detalhes, consulte [SECURITY.md](SECURITY.md).
 
 ### 1. Abrir a Aplicação
 
-Basta abrir o arquivo `index.html` em qualquer navegador moderno (Chrome, Edge, Firefox, etc).
-
-**Não é necessário servidor web!**
+Consulte a seção [⛔ Apenas para Uso Local](#-apenas-para-uso-local--não-hospede-publicamente) no topo deste documento para instruções de execução local.
 
 ### 2. Configurar Credenciais
 
@@ -119,8 +148,7 @@ Clique em um dos 8 serviços na roda circular:
 
 ```
 ├── .github/
-│   └── workflows/
-│       └── deploy-pages.yml   # Deploy automático GitHub Pages
+│   └── workflows/          # (sem deploy automático — apenas uso local)
 ├── index.html                 # Estrutura HTML principal
 ├── styles.css                 # Estilos (tema Steam)
 ├── services.js                # Configuração de serviços e endpoints
@@ -180,11 +208,7 @@ Dependendo dos serviços que você quer usar, adicione as permissões:
 
 ### "CORS Error"
 - Algumas APIs Microsoft podem bloquear requisições de origens file://
-- Solução: use um servidor web local simples:
-  ```bash
-  python -m http.server 8000
-  ```
-  Depois acesse: `http://localhost:8000`
+- Solução: use a Opção B (servidor local) descrita na seção [⛔ Apenas para Uso Local](#-apenas-para-uso-local--não-hospede-publicamente)
 
 ### "Access token expired"
 - A aplicação gerencia tokens automaticamente
