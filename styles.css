@@ -407,8 +407,8 @@ body {
 
 .wheel-container {
     position: relative;
-    width: 600px;
-    height: 600px;
+    width: 920px;
+    height: 920px;
     margin: 40px auto;
     display: flex;
     align-items: center;
@@ -457,10 +457,10 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 200px;
-    height: 200px;
+    width: 84px;
+    height: 84px;
     transform-origin: center center;
-    transform: translate(-50%, -50%) rotate(var(--rotation)) translateY(-220px) rotate(calc(-1 * var(--rotation)));
+    transform: translate(-50%, -50%) rotate(var(--rotation)) translateY(-390px) rotate(calc(-1 * var(--rotation)));
     transition: all var(--transition-normal);
     cursor: pointer;
 }
@@ -475,7 +475,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-md);
+    gap: var(--spacing-xs);
     transition: all var(--transition-normal);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
@@ -493,8 +493,8 @@ body {
 }
 
 .wheel-item-icon {
-    width: 64px;
-    height: 64px;
+    width: 34px;
+    height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -509,10 +509,14 @@ body {
 }
 
 .wheel-item-label {
-    font-size: 0.95rem;
+    font-size: 0.52rem;
     color: var(--color-text-primary);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    line-height: 1.2;
+    word-break: break-word;
+    max-width: 76px;
 }
 
 .wheel-item.selected .wheel-item-content {
@@ -1484,14 +1488,14 @@ body {
 
 @media (max-width: 768px) {
     .wheel-container {
-        width: 400px;
-        height: 400px;
+        width: 500px;
+        height: 500px;
     }
     
     .wheel-item {
-        width: 120px;
-        height: 120px;
-        transform: translate(-50%, -50%) rotate(var(--rotation)) translateY(-140px) rotate(calc(-1 * var(--rotation)));
+        width: 52px;
+        height: 52px;
+        transform: translate(-50%, -50%) rotate(var(--rotation)) translateY(-215px) rotate(calc(-1 * var(--rotation)));
     }
     
     .wheel-center {
@@ -1500,11 +1504,13 @@ body {
     }
     
     .wheel-item-icon {
-        font-size: 1.5rem;
+        width: 22px;
+        height: 22px;
     }
     
     .wheel-item-label {
-        font-size: 0.8rem;
+        font-size: 0.4rem;
+        max-width: 48px;
     }
     
     .config-actions {
