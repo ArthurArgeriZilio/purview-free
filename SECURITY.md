@@ -139,13 +139,13 @@ template.description = (template.description || '').substring(0, 500);
 
 ### 5. **Inline Event Handlers - REMOVIDOS**
 
-#### Antes (Vibecoding):
+#### Antes (problemático):
 ```javascript
 // ❌ onclick inline - difícil debug, não CSP-compliant
 <button onclick="app.deleteVariable('${key}')">Delete</button>
 ```
 
-#### Depois (Profissional):
+#### Depois (correto):
 ```javascript
 // ✅ Event listener apropriado
 const deleteBtn = document.createElement('button');

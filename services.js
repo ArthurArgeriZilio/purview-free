@@ -7,6 +7,7 @@ const SERVICES = {
         name: 'Power BI',
         baseUrl: 'https://api.powerbi.com/v1.0/myorg',
         authScope: 'https://analysis.windows.net/powerbi/api/.default',
+        serviceDocs: 'https://learn.microsoft.com/en-us/rest/api/power-bi/',
         categories: {
             dashboards: {
                 name: 'Dashboards',
@@ -342,6 +343,7 @@ const SERVICES = {
         name: 'Microsoft Purview',
         baseUrl: 'https://{accountName}.purview.azure.com',
         authScope: 'https://purview.azure.net/.default',
+        serviceDocs: 'https://learn.microsoft.com/en-us/rest/api/purview/',
         categories: {
             catalog: {
                 name: 'Catalog',
@@ -495,6 +497,7 @@ const SERVICES = {
         name: 'Azure Resource Manager',
         baseUrl: 'https://management.azure.com',
         authScope: 'https://management.azure.com/.default',
+        serviceDocs: 'https://learn.microsoft.com/en-us/rest/api/azure/',
         categories: {
             resourceGroups: {
                 name: 'Resource Groups',
@@ -613,6 +616,7 @@ const SERVICES = {
         name: 'Microsoft Fabric',
         baseUrl: 'https://api.fabric.microsoft.com',
         authScope: 'https://api.fabric.microsoft.com/.default',
+        serviceDocs: 'https://learn.microsoft.com/en-us/rest/api/fabric/',
         categories: {
             workspaces: {
                 name: 'Workspaces',
@@ -737,6 +741,7 @@ const SERVICES = {
         name: 'Microsoft Graph API',
         baseUrl: 'https://graph.microsoft.com/v1.0',
         authScope: 'https://graph.microsoft.com/.default',
+        serviceDocs: 'https://learn.microsoft.com/en-us/graph/api/overview',
         categories: {
             users: {
                 name: 'Users',
@@ -925,6 +930,7 @@ const SERVICES = {
         name: 'OneDrive',
         baseUrl: 'https://graph.microsoft.com/v1.0',
         authScope: 'https://graph.microsoft.com/.default',
+        serviceDocs: 'https://learn.microsoft.com/en-us/graph/api/resources/onedrive',
         categories: {
             drive: {
                 name: 'Drive',
@@ -1037,6 +1043,7 @@ const SERVICES = {
         name: 'SharePoint',
         baseUrl: 'https://graph.microsoft.com/v1.0',
         authScope: 'https://graph.microsoft.com/.default',
+        serviceDocs: 'https://learn.microsoft.com/en-us/graph/api/resources/sharepoint',
         categories: {
             sites: {
                 name: 'Sites',
@@ -1132,6 +1139,7 @@ const SERVICES = {
         name: 'Azure Synapse',
         baseUrl: 'https://{workspaceName}.dev.azuresynapse.net',
         authScope: 'https://dev.azuresynapse.net/.default',
+        serviceDocs: 'https://learn.microsoft.com/en-us/rest/api/synapse/',
         categories: {
             workspaces: {
                 name: 'Workspaces',

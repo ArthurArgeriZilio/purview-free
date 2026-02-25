@@ -1,6 +1,6 @@
-# 🚀 Guia Completo de Features
+# Guia Completo de Features
 
-## 📋 Índice
+## Índice
 1. [Search & Filter](#search--filter)
 2. [Variables](#variables)
 3. [Templates](#templates)
@@ -11,6 +11,8 @@
 8. [Auto-Retry](#auto-retry)
 9. [Quick Actions](#quick-actions)
 10. [JSON Formatter](#json-formatter)
+11. [Links de Documentação](#links-de-documentação)
+12. [Fullscreen](#fullscreen)
 
 ---
 
@@ -386,7 +388,23 @@ Faça backup de suas collections:
 
 ---
 
-## 📚 Próximos Passos
+## Links de Documentação
+
+### Por Serviço
+Ao selecionar um serviço na roda, um link "Service docs" aparece abaixo do nome do serviço no painel. Ele aponta para a documentação oficial do serviço no Microsoft Learn e abre em nova aba.
+
+### Por Endpoint
+Na lista de endpoints, cada item que possui documentação oficial exibe um ícone discreto à direita. Clicando nesse ícone você abre a página de referência da API diretamente no Microsoft Learn, sem sair da aplicação ou selecionar o endpoint.
+
+---
+
+## Fullscreen
+
+O botão **FULLSCREEN** no canto superior direito da interface entra ou sai do modo de tela cheia usando a Fullscreen API do navegador. Útil para gravações de tela ou demonstrações. O ícone do botão muda de acordo com o estado atual.
+
+---
+
+## Próximos Passos
 
 1. **Configure Variáveis Básicas**
    - Crie `tenantId`, `subscriptionId`, `apiVersion`
@@ -405,4 +423,4 @@ Faça backup de suas collections:
 
 ---
 
-**🎉 Todas as features estão prontas para uso! Divirta-se explorando!**
+**Todas as features estão prontas para uso!**
