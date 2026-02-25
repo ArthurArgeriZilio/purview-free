@@ -7,7 +7,6 @@ const SERVICES = {
         name: 'Power BI',
         baseUrl: 'https://api.powerbi.com/v1.0/myorg',
         authScope: 'https://analysis.windows.net/powerbi/api/.default',
-        serviceDocs: 'https://learn.microsoft.com/en-us/rest/api/power-bi/',
         categories: {
             dashboards: {
                 name: 'Dashboards',
@@ -343,7 +342,6 @@ const SERVICES = {
         name: 'Microsoft Purview',
         baseUrl: 'https://{accountName}.purview.azure.com',
         authScope: 'https://purview.azure.net/.default',
-        serviceDocs: 'https://learn.microsoft.com/en-us/rest/api/purview/',
         categories: {
             catalog: {
                 name: 'Catalog',
@@ -497,7 +495,6 @@ const SERVICES = {
         name: 'Azure Resource Manager',
         baseUrl: 'https://management.azure.com',
         authScope: 'https://management.azure.com/.default',
-        serviceDocs: 'https://learn.microsoft.com/en-us/rest/api/azure/',
         categories: {
             resourceGroups: {
                 name: 'Resource Groups',
@@ -616,7 +613,6 @@ const SERVICES = {
         name: 'Microsoft Fabric',
         baseUrl: 'https://api.fabric.microsoft.com',
         authScope: 'https://api.fabric.microsoft.com/.default',
-        serviceDocs: 'https://learn.microsoft.com/en-us/rest/api/fabric/',
         categories: {
             workspaces: {
                 name: 'Workspaces',
@@ -741,7 +737,6 @@ const SERVICES = {
         name: 'Microsoft Graph API',
         baseUrl: 'https://graph.microsoft.com/v1.0',
         authScope: 'https://graph.microsoft.com/.default',
-        serviceDocs: 'https://learn.microsoft.com/en-us/graph/api/overview',
         categories: {
             users: {
                 name: 'Users',
@@ -930,7 +925,6 @@ const SERVICES = {
         name: 'OneDrive',
         baseUrl: 'https://graph.microsoft.com/v1.0',
         authScope: 'https://graph.microsoft.com/.default',
-        serviceDocs: 'https://learn.microsoft.com/en-us/graph/api/resources/onedrive',
         categories: {
             drive: {
                 name: 'Drive',
@@ -1043,7 +1037,6 @@ const SERVICES = {
         name: 'SharePoint',
         baseUrl: 'https://graph.microsoft.com/v1.0',
         authScope: 'https://graph.microsoft.com/.default',
-        serviceDocs: 'https://learn.microsoft.com/en-us/graph/api/resources/sharepoint',
         categories: {
             sites: {
                 name: 'Sites',
@@ -1139,7 +1132,6 @@ const SERVICES = {
         name: 'Azure Synapse',
         baseUrl: 'https://{workspaceName}.dev.azuresynapse.net',
         authScope: 'https://dev.azuresynapse.net/.default',
-        serviceDocs: 'https://learn.microsoft.com/en-us/rest/api/synapse/',
         categories: {
             workspaces: {
                 name: 'Workspaces',
@@ -1784,196 +1776,4 @@ const SERVICES = {
                 ]
             }
         }
-    },
-    devops: {
-        name: 'Azure DevOps',
-        baseUrl: 'https://dev.azure.com/{organization}',
-        authScope: 'https://app.vssps.visualstudio.com/.default',
-        categories: {
-            projects: {
-                name: 'Projects',
-                endpoints: [
-                    { method: 'GET', path: '/_apis/projects?api-version=7.1', description: 'List all projects', docs: 'https://learn.microsoft.com/en-us/rest/api/azure/devops/core/projects/list' },
-                    { method: 'GET', path: '/_apis/projects/{projectId}?api-version=7.1', description: 'Get project by ID', docs: 'https://learn.microsoft.com/en-us/rest/api/azure/devops/core/projects/get' }
-                ]
-            },
-            repositories: {
-                name: 'Repositories',
-                endpoints: [
-                    { method: 'GET', path: '/{project}/_apis/git/repositories?api-version=7.1', description: 'List repositories', docs: 'https://learn.microsoft.com/en-us/rest/api/azure/devops/git/repositories/list' }
-                ]
-            }
-        }
-    },
-    teams: {
-        name: 'Microsoft Teams',
-        baseUrl: 'https://graph.microsoft.com/v1.0',
-        authScope: 'https://graph.microsoft.com/.default',
-        categories: {
-            teams: {
-                name: 'Teams',
-                endpoints: [
-                    { method: 'GET', path: '/teams', description: 'List all teams', docs: 'https://learn.microsoft.com/en-us/graph/api/teams-list' },
-                    { method: 'GET', path: '/teams/{teamId}', description: 'Get team by ID', docs: 'https://learn.microsoft.com/en-us/graph/api/team-get' }
-                ]
-            }
-        }
-    },
-    keyvault: {
-        name: 'Azure Key Vault',
-        baseUrl: 'https://{vaultName}.vault.azure.net',
-        authScope: 'https://vault.azure.net/.default',
-        categories: {
-            secrets: {
-                name: 'Secrets',
-                endpoints: [
-                    { method: 'GET', path: '/secrets?api-version=7.4', description: 'List secrets', docs: 'https://learn.microsoft.com/en-us/rest/api/keyvault/secrets/get-secrets' },
-                    { method: 'GET', path: '/secrets/{secretName}?api-version=7.4', description: 'Get secret', docs: 'https://learn.microsoft.com/en-us/rest/api/keyvault/secrets/get-secret' }
-                ]
-            }
-        }
-    },
-    datafactory: {
-        name: 'Azure Data Factory',
-        baseUrl: 'https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories',
-        authScope: 'https://management.azure.com/.default',
-        categories: {
-            factories: {
-                name: 'Factories',
-                endpoints: [
-                    { method: 'GET', path: '?api-version=2018-06-01', description: 'List factories', docs: 'https://learn.microsoft.com/en-us/rest/api/datafactory/factories/list' }
-                ]
-            }
-        }
-    },
-    databricks: {
-        name: 'Azure Databricks',
-        baseUrl: 'https://{workspaceUrl}/api/2.0',
-        authScope: 'https://management.azure.com/.default',
-        categories: {
-            clusters: {
-                name: 'Clusters',
-                endpoints: [
-                    { method: 'GET', path: '/clusters/list', description: 'List clusters', docs: 'https://learn.microsoft.com/en-us/azure/databricks/dev-tools/api/latest/clusters' }
-                ]
-            }
-        }
-    },
-    sentinel: {
-        name: 'Microsoft Sentinel',
-        baseUrl: 'https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights',
-        authScope: 'https://management.azure.com/.default',
-        categories: {
-            incidents: {
-                name: 'Incidents',
-                endpoints: [
-                    { method: 'GET', path: '/incidents?api-version=2023-02-01', description: 'List incidents', docs: 'https://learn.microsoft.com/en-us/rest/api/securityinsights/incidents/list' }
-                ]
-            }
-        }
-    },
-    dynamics365: {
-        name: 'Dynamics 365',
-        baseUrl: 'https://{organizationUrl}/api/data/v9.2',
-        authScope: 'https://{organizationUrl}/.default',
-        categories: {
-            accounts: {
-                name: 'Accounts',
-                endpoints: [
-                    { method: 'GET', path: '/accounts', description: 'List accounts', docs: 'https://learn.microsoft.com/en-us/power-apps/developer/data-platform/webapi/query-data-web-api' }
-                ]
-            }
-        }
-    },
-    logicapps: {
-        name: 'Azure Logic Apps',
-        baseUrl: 'https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows',
-        authScope: 'https://management.azure.com/.default',
-        categories: {
-            workflows: {
-                name: 'Workflows',
-                endpoints: [
-                    { method: 'GET', path: '?api-version=2019-05-01', description: 'List workflows', docs: 'https://learn.microsoft.com/en-us/rest/api/logic/workflows/list-by-resource-group' }
-                ]
-            }
-        }
-    },
-    aiservices: {
-        name: 'Azure AI Services',
-        baseUrl: 'https://{endpoint}.cognitiveservices.azure.com',
-        authScope: 'https://cognitiveservices.azure.com/.default',
-        categories: {
-            textAnalytics: {
-                name: 'Text Analytics',
-                endpoints: [
-                    { method: 'POST', path: '/text/analytics/v3.1/sentiment', description: 'Analyze sentiment', docs: 'https://learn.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-how-to-sentiment-analysis' }
-                ]
-            }
-        }
-    },
-    monitor: {
-        name: 'Azure Monitor',
-        baseUrl: 'https://management.azure.com/subscriptions/{subscriptionId}',
-        authScope: 'https://management.azure.com/.default',
-        categories: {
-            metrics: {
-                name: 'Metrics',
-                endpoints: [
-                    { method: 'GET', path: '/providers/Microsoft.Insights/metrics?api-version=2021-05-01', description: 'List metrics', docs: 'https://learn.microsoft.com/en-us/rest/api/monitor/metrics/list' }
-                ]
-            }
-        }
-    },
-    costmanagement: {
-        name: 'Azure Cost Management',
-        baseUrl: 'https://management.azure.com/subscriptions/{subscriptionId}',
-        authScope: 'https://management.azure.com/.default',
-        categories: {
-            usage: {
-                name: 'Usage',
-                endpoints: [
-                    { method: 'POST', path: '/providers/Microsoft.CostManagement/query?api-version=2023-03-01', description: 'Query usage', docs: 'https://learn.microsoft.com/en-us/rest/api/cost-management/query/usage' }
-                ]
-            }
-        }
-    },
-    powerautomate: {
-        name: 'Power Automate',
-        baseUrl: 'https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{environmentId}',
-        authScope: 'https://service.flow.microsoft.com/.default',
-        categories: {
-            flows: {
-                name: 'Flows',
-                endpoints: [
-                    { method: 'GET', path: '/flows?api-version=2016-11-01', description: 'List flows', docs: 'https://learn.microsoft.com/en-us/connectors/flowmanagement/#list-flows' }
-                ]
-            }
-        }
-    },
-    powerapps: {
-        name: 'Power Apps',
-        baseUrl: 'https://api.powerapps.com/providers/Microsoft.PowerApps/apps',
-        authScope: 'https://service.powerapps.com/.default',
-        categories: {
-            apps: {
-                name: 'Apps',
-                endpoints: [
-                    { method: 'GET', path: '?api-version=2016-11-01', description: 'List apps', docs: 'https://learn.microsoft.com/en-us/connectors/powerappsforappmakers/#list-apps' }
-                ]
-            }
-        }
-    },
-    exchange: {
-        name: 'Exchange Online',
-        baseUrl: 'https://graph.microsoft.com/v1.0',
-        authScope: 'https://graph.microsoft.com/.default',
-        categories: {
-            mail: {
-                name: 'Mail',
-                endpoints: [
-                    { method: 'GET', path: '/me/messages', description: 'List messages', docs: 'https://learn.microsoft.com/en-us/graph/api/user-list-messages' }
-                ]
-            }
-        }
     }
-};
