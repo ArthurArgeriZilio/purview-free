@@ -120,8 +120,8 @@ class MSRESTClient {
                 }
             }
 
-            // Enter - confirm keyboard-focused wheel item
-            if (!inEditableField && e.key === 'Enter') {
+            // Enter - confirm keyboard-focused wheel item (only when armed)
+            if (!inEditableField && this.wheelKeyboardArmed && e.key === 'Enter') {
                 const wheelContainer = document.getElementById('wheelContainer');
                 if (!wheelContainer.classList.contains('hidden') && this.wheelFocusIndex >= 0) {
                     const wheelItems = Array.from(document.querySelectorAll('.wheel-item'));
