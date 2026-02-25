@@ -530,8 +530,6 @@ body {
     stroke: white;
     filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));
 }
-    letter-spacing: 1px;
-}
 
 .wheel-item.keyboard-focused .wheel-item-content {
     background: rgba(26, 159, 255, 0.15);
@@ -548,17 +546,6 @@ body {
 .wheel-item.keyboard-focused .wheel-item-icon,
 .wheel-item.keyboard-focused .wheel-item-label {
     color: var(--color-accent-secondary);
-}
-
-.wheel-item.selected .wheel-item-content {
-    background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
-    border-color: var(--color-accent-secondary);
-    transform: scale(1.15);
-}
-
-.wheel-item.selected .wheel-item-icon,
-.wheel-item.selected .wheel-item-label {
-    color: white;
 }
 
 /* ============================================

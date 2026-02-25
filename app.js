@@ -14,6 +14,7 @@ class MSRESTClient {
         this.comparisonData = { left: null, right: null };
         this.rateLimitTracker = new RateLimitTracker();
         this.wheelFocusIndex = -1;
+        this.wheelKeyboardArmed = false;
         
         this.init();
     }
@@ -97,8 +98,8 @@ class MSRESTClient {
                 }
             }
 
-            // Arrow keys - navigate service wheel (only when wheel is visible and not in editable field)
-            if (!inEditableField && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+            // Arrow keys - navigate service wheel (only when wheel is visible, armed, and not in editable field)
+            if (!inEditableField && this.wheelKeyboardArmed && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
                 const wheelContainer = document.getElementById('wheelContainer');
                 if (!wheelContainer.classList.contains('hidden')) {
                     e.preventDefault();
@@ -193,6 +194,12 @@ class MSRESTClient {
         document.querySelectorAll('.wheel-item').forEach(item => {
             item.addEventListener('click', () => this.selectService(item.dataset.service));
         });
+
+        // Arm keyboard navigation on wheel interaction
+        const wheelContainer = document.getElementById('wheelContainer');
+        wheelContainer.addEventListener('mouseenter', () => { this.wheelKeyboardArmed = true; });
+        wheelContainer.addEventListener('mouseleave', () => { this.wheelKeyboardArmed = false; });
+        wheelContainer.addEventListener('click', () => { this.wheelKeyboardArmed = true; });
 
         // Back to wheel
         document.getElementById('backToWheel').addEventListener('click', () => this.showWheel());
@@ -444,6 +451,7 @@ class MSRESTClient {
         this.currentService = null;
         // Reset keyboard navigation state
         this.wheelFocusIndex = -1;
+        this.wheelKeyboardArmed = false;
         document.querySelectorAll('.wheel-item.keyboard-focused').forEach(item => {
             item.classList.remove('keyboard-focused');
         });

@@ -325,9 +325,11 @@ Atalhos rápidos disponíveis na resposta:
 | `Ctrl + K` | Foco na seleção de categoria |
 | `Ctrl + Enter` | Executar requisição |
 | `Escape` | Fechar modais |
-| `← / →` | Navegar entre serviços na roda (esquerda/direita) |
-| `↑ / ↓` | Navegar entre serviços na roda (cima/baixo) |
+| `← / →` | Navegar entre serviços na roda (requer foco/hover na roda) |
+| `↑ / ↓` | Navegar entre serviços na roda (requer foco/hover na roda) |
 | `Enter` | Selecionar serviço destacado na roda |
+
+> **Nota:** As setas só funcionam após o mouse entrar na área da roda (ou um clique nela). Ao sair da roda com o mouse, a navegação por teclado é desativada automaticamente. Isso evita interferência ao digitar em outros campos.
 
 ---
 
