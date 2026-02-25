@@ -325,6 +325,9 @@ Atalhos rápidos disponíveis na resposta:
 | `Ctrl + K` | Foco na seleção de categoria |
 | `Ctrl + Enter` | Executar requisição |
 | `Escape` | Fechar modais |
+| `← / →` | Navegar entre serviços na roda (esquerda/direita) |
+| `↑ / ↓` | Navegar entre serviços na roda (cima/baixo) |
+| `Enter` | Selecionar serviço destacado na roda |
 
 ---
 

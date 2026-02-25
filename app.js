@@ -13,6 +13,7 @@ class MSRESTClient {
         this.batchQueue = [];
         this.comparisonData = { left: null, right: null };
         this.rateLimitTracker = new RateLimitTracker();
+        this.wheelFocusIndex = -1;
         
         this.init();
     }
@@ -62,6 +63,15 @@ class MSRESTClient {
 
     setupKeyboardShortcuts() {
         document.addEventListener('keydown', (e) => {
+            // Skip keyboard shortcuts when focus is inside an editable element
+            const active = document.activeElement;
+            const inEditableField = active && (
+                active.tagName === 'INPUT' ||
+                active.tagName === 'TEXTAREA' ||
+                active.tagName === 'SELECT' ||
+                active.isContentEditable
+            );
+
             // Ctrl/Cmd + K - Focus search/category
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
@@ -84,6 +94,41 @@ class MSRESTClient {
                     this.closeModals();
                 } else if (this.currentService) {
                     this.showWheel();
+                }
+            }
+
+            // Arrow keys - navigate service wheel (only when wheel is visible and not in editable field)
+            if (!inEditableField && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+                const wheelContainer = document.getElementById('wheelContainer');
+                if (!wheelContainer.classList.contains('hidden')) {
+                    e.preventDefault();
+                    const wheelItems = Array.from(document.querySelectorAll('.wheel-item'));
+                    if (wheelItems.length === 0) return;
+
+                    if (this.wheelFocusIndex < 0) {
+                        this.wheelFocusIndex = 0;
+                    } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                        this.wheelFocusIndex = (this.wheelFocusIndex + 1) % wheelItems.length;
+                    } else {
+                        this.wheelFocusIndex = (this.wheelFocusIndex - 1 + wheelItems.length) % wheelItems.length;
+                    }
+
+                    wheelItems.forEach((item, i) => {
+                        item.classList.toggle('keyboard-focused', i === this.wheelFocusIndex);
+                    });
+                }
+            }
+
+            // Enter - confirm keyboard-focused wheel item
+            if (!inEditableField && e.key === 'Enter') {
+                const wheelContainer = document.getElementById('wheelContainer');
+                if (!wheelContainer.classList.contains('hidden') && this.wheelFocusIndex >= 0) {
+                    const wheelItems = Array.from(document.querySelectorAll('.wheel-item'));
+                    const focused = wheelItems[this.wheelFocusIndex];
+                    if (focused) {
+                        e.preventDefault();
+                        this.selectService(focused.dataset.service);
+                    }
                 }
             }
         });
@@ -397,6 +442,11 @@ class MSRESTClient {
         document.getElementById('wheelContainer').classList.remove('hidden');
         document.getElementById('servicePanel').classList.add('hidden');
         this.currentService = null;
+        // Reset keyboard navigation state
+        this.wheelFocusIndex = -1;
+        document.querySelectorAll('.wheel-item.keyboard-focused').forEach(item => {
+            item.classList.remove('keyboard-focused');
+        });
     }
 
     populateCategories() {
