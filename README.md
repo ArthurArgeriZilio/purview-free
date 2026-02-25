@@ -62,6 +62,8 @@ Para mais detalhes, consulte [SECURITY.md](SECURITY.md).
 - Favoritos
 - Gerador de código (Python, PowerShell, cURL)
 - Suporte a múltiplos ambientes (Dev, QA, Prod)
+- Links de documentação oficial por serviço e por endpoint
+- Botão de tela cheia (fullscreen) para facilitar gravação de tela
 
 ## Serviços Suportados
 

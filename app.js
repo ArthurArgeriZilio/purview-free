@@ -179,6 +179,10 @@ class MSRESTClient {
             });
         });
 
+        // Fullscreen button
+        document.getElementById('btnFullscreen').addEventListener('click', () => this.toggleFullscreen());
+        document.addEventListener('fullscreenchange', () => this.onFullscreenChange());
+
         // Code generator tabs
         document.querySelectorAll('.code-tab').forEach(tab => {
             tab.addEventListener('click', () => this.switchCodeTab(tab.dataset.lang));
@@ -368,6 +372,15 @@ class MSRESTClient {
         document.getElementById('wheelContainer').classList.add('hidden');
         document.getElementById('servicePanel').classList.remove('hidden');
         document.getElementById('serviceName').textContent = this.currentService.name;
+
+        // Show service docs link if available
+        const serviceDocsLink = document.getElementById('serviceDocs');
+        if (this.currentService.serviceDocs) {
+            serviceDocsLink.href = this.currentService.serviceDocs;
+            serviceDocsLink.classList.remove('hidden');
+        } else {
+            serviceDocsLink.classList.add('hidden');
+        }
         
         // Populate categories
         this.populateCategories();
@@ -421,13 +434,35 @@ class MSRESTClient {
             const item = document.createElement('div');
             item.className = 'endpoint-item';
             item.dataset.index = index;
-            
-            item.innerHTML = `
-                <span class="endpoint-method ${endpoint.method.toLowerCase()}">${endpoint.method}</span>
-                <span class="endpoint-path">${endpoint.path}</span>
-                <span class="endpoint-desc">${endpoint.description}</span>
-            `;
-            
+
+            const methodSpan = document.createElement('span');
+            methodSpan.className = `endpoint-method ${endpoint.method.toLowerCase()}`;
+            methodSpan.textContent = endpoint.method;
+
+            const pathSpan = document.createElement('span');
+            pathSpan.className = 'endpoint-path';
+            pathSpan.textContent = endpoint.path;
+
+            const descSpan = document.createElement('span');
+            descSpan.className = 'endpoint-desc';
+            descSpan.textContent = endpoint.description;
+
+            item.appendChild(methodSpan);
+            item.appendChild(pathSpan);
+            item.appendChild(descSpan);
+
+            if (endpoint.docs) {
+                const docsLink = document.createElement('a');
+                docsLink.className = 'endpoint-doc-link';
+                docsLink.href = endpoint.docs;
+                docsLink.target = '_blank';
+                docsLink.rel = 'noopener noreferrer';
+                docsLink.title = 'Official documentation';
+                docsLink.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M6 2H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9"/><path d="M10 2h4v4M14 2L8 8"/></svg>';
+                docsLink.addEventListener('click', (e) => e.stopPropagation());
+                item.appendChild(docsLink);
+            }
+
             item.addEventListener('click', () => this.selectEndpoint(index));
             container.appendChild(item);
         });
@@ -1629,6 +1664,32 @@ curl -X ${method} \\
         a.download = `response-${Date.now()}.json`;
         a.click();
         URL.revokeObjectURL(url);
+    }
+
+    // ============================================
+    // FULLSCREEN
+    // ============================================
+
+    toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                console.warn('Fullscreen request failed:', err.message);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    }
+
+    onFullscreenChange() {
+        const enterIcon = document.getElementById('iconEnterFS');
+        const exitIcon = document.getElementById('iconExitFS');
+        if (document.fullscreenElement) {
+            enterIcon.style.display = 'none';
+            exitIcon.style.display = '';
+        } else {
+            enterIcon.style.display = '';
+            exitIcon.style.display = 'none';
+        }
     }
 }
 

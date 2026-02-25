@@ -18,7 +18,18 @@
     <header class="header">
         <div class="header-content">
             <h1 class="app-title">MICROSOFT SERVICES REST CLIENT</h1>
-            <div class="offline-indicator">OFFLINE MODE</div>
+            <div class="header-right">
+                <button id="btnFullscreen" class="btn-fullscreen" title="Toggle fullscreen">
+                    <svg id="iconEnterFS" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                        <path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/>
+                    </svg>
+                    <svg id="iconExitFS" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="display:none">
+                        <path d="M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3"/>
+                    </svg>
+                    FULLSCREEN
+                </button>
+                <div class="offline-indicator">OFFLINE MODE</div>
+            </div>
         </div>
     </header>
 
@@ -202,7 +213,16 @@
         <div id="servicePanel" class="service-panel hidden">
             <div class="service-header">
                 <button id="backToWheel" class="btn-back">BACK TO SERVICES</button>
-                <h2 id="serviceName" class="service-title"></h2>
+                <div class="service-title-group">
+                    <h2 id="serviceName" class="service-title"></h2>
+                    <a id="serviceDocs" class="service-docs-link hidden" href="#" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+                            <path d="M6 2H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9"/>
+                            <path d="M10 2h4v4M14 2L8 8"/>
+                        </svg>
+                        Service docs
+                    </a>
+                </div>
                 <div class="service-actions">
                     <button id="btnHistory" class="btn-icon" title="History">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
